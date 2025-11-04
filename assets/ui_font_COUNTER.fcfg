@@ -1,0 +1,16 @@
+{
+  "codename": "COUNTER",
+  "ttf_path": "\\assets\\G7_Segment.ttf",
+  "bin_path": "\\assets\\ui_font_COUNTER.bin",
+  "c_path": "\\assets\\ui_font_COUNTER.c",
+  "cfg_path": "\\assets\\ui_font_COUNTER.fcfg",
+  "size": 32,
+  "bpp": 1,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

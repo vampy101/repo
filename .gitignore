@@ -1,0 +1,21 @@
+# PlatformIO
+.pio/
+.vscode/
+.pioenvs/
+.piolibdeps/
+lib/readme.txt
+
+# Build artifacts
+*.bin
+*.elf
+*.map
+build.log
+
+# Cache and temporary files
+cache/
+autosave/
+backup/
+
+# OS files
+.DS_Store
+Thumbs.db
