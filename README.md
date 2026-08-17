@@ -27,7 +27,7 @@ npm run preview    # serves dist/ on :4173
 Verification:
 
 ```bash
-npm test           # vitest: 96 unit tests over the pure game logic
+npm test           # vitest: 98 unit tests over the pure game logic
 npm run playtest   # drives the built game in a real Chromium, writes screenshots
 ```
 
@@ -39,6 +39,11 @@ land in `playtest-shots/`.
 Stack: TypeScript + Phaser 3 + Vite. No backend, no accounts, no external
 services, no asset files — every sprite, cursor, icon and sound is generated in
 code at load time.
+
+![Checkpoint 7, the Listening Alley](docs/screenshot-alley.png)
+
+More: [verbal verification at the terminal](docs/screenshot-verification.png) ·
+[the completion panel](docs/screenshot-completion.png)
 
 ---
 

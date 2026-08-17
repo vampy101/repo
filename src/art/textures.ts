@@ -149,10 +149,10 @@ function drawBackground(): Painter {
   });
 
   // ---- vignette ----------------------------------------------------------
-  p.dither(0, 0, 24, 180, PAL.ink, (px) => (1 - px / 24) ** 2.6);
-  p.dither(296, 0, 24, 180, PAL.ink, (px) => (px / 23) ** 2.6);
-  p.dither(0, 0, 320, 9, PAL.ink, (_px, py) => (1 - py / 9) ** 2.2);
-  p.dither(0, 174, 320, 6, PAL.ink, (_px, py) => (py / 6) ** 2.6 * 0.7);
+  p.shade(0, 0, 30, 180, PAL.ink, (i) => (1 - i / 30) ** 1.6 * 0.92, 'x');
+  p.shade(290, 0, 30, 180, PAL.ink, (i) => (i / 29) ** 1.6 * 0.92, 'x');
+  p.shade(0, 0, 320, 14, PAL.ink, (i) => (1 - i / 14) ** 1.5 * 0.8, 'y');
+  p.shade(0, 170, 320, 10, PAL.ink, (i) => (i / 10) ** 1.8 * 0.5, 'y');
 
   return p;
 }

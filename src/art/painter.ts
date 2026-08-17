@@ -175,6 +175,33 @@ export class Painter {
     return this;
   }
 
+  /**
+   * True alpha wash, one strip at a time. Used only for lighting falloff —
+   * the vignette and the darkness at the top of the alley — where stippling a
+   * flat colour reads as dirt on the screen rather than as an absence of light.
+   */
+  shade(
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    color: string,
+    alpha: (i: number) => number,
+    axis: 'x' | 'y' = 'x',
+  ): this {
+    const n = axis === 'x' ? w : h;
+    this.ctx.fillStyle = color;
+    for (let i = 0; i < n; i++) {
+      const a = alpha(i);
+      if (a <= 0) continue;
+      this.ctx.globalAlpha = Math.min(1, a);
+      if (axis === 'x') this.ctx.fillRect(x + i, y, 1, h);
+      else this.ctx.fillRect(x, y + i, w, 1);
+    }
+    this.ctx.globalAlpha = 1;
+    return this;
+  }
+
   /** Seeded speckle, for grime and wet concrete. */
   speckle(x: number, y: number, w: number, h: number, color: string, density: number): this {
     for (let iy = 0; iy < h; iy++) {
