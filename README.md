@@ -31,10 +31,30 @@ npm test           # vitest: 98 unit tests over the pure game logic
 npm run playtest   # drives the built game in a real Chromium, writes screenshots
 ```
 
-`npm run playtest` needs a Chromium binary. It is pinned to
-`/opt/pw-browsers/chromium-1194/chrome-linux/chrome` at the top of
-`scripts/playtest.mjs`; change `CHROME` there for other machines. Screenshots
-land in `playtest-shots/`.
+`npm run playtest` needs a Chromium. It uses Playwright's own by default
+(`npx playwright install chromium` once), or set `CIL_CHROME=/path/to/chrome` to
+use one you already have. Add `--headed` to watch it play. Screenshots land in
+`playtest-shots/`.
+
+### Poking at it by hand
+
+The game exposes a small debug API on `window.__CIL` for the browser console —
+this is what the playtest drives:
+
+```js
+__CIL.state()                       // the whole save state
+__CIL.objective()                   // the current objective line
+__CIL.start('ghost')                // restart as a given build
+__CIL.setAttention(9)               // jump City Attention to a tier
+__CIL.teleport(287, 170)            // drop Mara somewhere walkable
+__CIL.examine('puddle')             // fire a verb without walking there
+__CIL.useItem('strip', 'grate')
+__CIL.talk('drone'); __CIL.choices() // read the choices currently on screen
+__CIL.clearSave()
+```
+
+`Tab` in-game outlines every hotspot, its stand point, the walkable band and the
+prop footprints — the fastest way to see the scene's geometry.
 
 Stack: TypeScript + Phaser 3 + Vite. No backend, no accounts, no external
 services, no asset files — every sprite, cursor, icon and sound is generated in

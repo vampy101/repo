@@ -10,10 +10,20 @@
  */
 import { chromium } from '@playwright/test';
 import { spawn } from 'node:child_process';
-import { mkdirSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 
-const CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+/**
+ * Prefer Playwright's own Chromium. CIL_CHROME overrides it, and the pinned
+ * path is a fallback for machines whose installed browser revision does not
+ * match this Playwright version.
+ */
+const CHROME_CANDIDATES = [
+  process.env.CIL_CHROME,
+  '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+].filter(Boolean);
+const CHROME = CHROME_CANDIDATES.find((p) => existsSync(p));
+
 const PORT = 4183;
 const URL = `http://127.0.0.1:${PORT}/`;
 const SHOTS = 'playtest-shots';
@@ -61,11 +71,22 @@ rmSync(SHOTS, { recursive: true, force: true });
 mkdirSync(SHOTS, { recursive: true });
 
 const server = await startServer();
-const browser = await chromium.launch({
-  executablePath: CHROME,
-  headless: !headed,
-  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--mute-audio'],
-});
+let browser;
+try {
+  browser = await chromium.launch({
+    ...(CHROME ? { executablePath: CHROME } : {}),
+    headless: !headed,
+    args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--mute-audio'],
+  });
+} catch (err) {
+  server.kill('SIGTERM');
+  console.error(
+    '\nCould not launch Chromium. Either run `npx playwright install chromium`,\n' +
+      'or point CIL_CHROME at an existing Chrome/Chromium binary:\n' +
+      '  CIL_CHROME=/path/to/chrome npm run playtest\n',
+  );
+  throw err;
+}
 
 try {
   const context = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
