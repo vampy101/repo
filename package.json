@@ -1,0 +1,24 @@
+{
+  "name": "the-city-is-listening",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The City Is Listening - a retro point-and-click vertical slice. Scene: Checkpoint 7, The Listening Alley.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "playtest": "node scripts/playtest.mjs"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  }
+}

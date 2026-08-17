@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The City Is Listening — Checkpoint 7</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div id="cabinet">
+      <!-- Scaled at integer steps by ui/layout.ts -->
+      <div id="rig">
+        <div id="viewport">
+          <div id="stage"></div>
+          <!-- DOM overlays sit on top of the canvas, sized in virtual pixels -->
+          <div id="overlays">
+            <div id="subtitle" class="hidden"></div>
+            <div id="dialogue" class="hidden">
+              <div id="dialogue-speaker"></div>
+              <div id="dialogue-text"></div>
+              <ul id="dialogue-choices"></ul>
+              <div id="dialogue-hint">click / space to continue &nbsp;·&nbsp; esc to close</div>
+            </div>
+            <div id="toasts"></div>
+            <div id="check-banner" class="hidden"></div>
+            <div id="modal" class="hidden"></div>
+          </div>
+        </div>
+        <div id="hud">
+          <div id="hud-stats">
+            <div class="stat-col">
+              <div class="stat" id="stat-health"></div>
+              <div class="stat" id="stat-nerve"></div>
+            </div>
+            <div class="stat-col">
+              <div class="stat" id="stat-tech"></div>
+              <div class="stat" id="stat-street"></div>
+            </div>
+            <div class="stat-col wide">
+              <div class="stat" id="stat-attention"></div>
+              <div class="stat" id="stat-xp"></div>
+            </div>
+          </div>
+          <div id="hud-lower">
+            <div id="inventory" aria-label="inventory"></div>
+            <div id="hud-side">
+              <div id="hud-status">CHECKPOINT 7 · THE LISTENING ALLEY</div>
+              <div id="hud-buttons">
+                <button id="btn-hotspots" title="Highlight interactive objects (Tab)">EYES</button>
+                <button id="btn-audio" title="Mute / unmute">SOUND</button>
+                <button id="btn-restart" title="Restart the scene">RESTART</button>
+                <button id="btn-clear" title="Erase the autosave">CLEAR SAVE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <noscript>This game requires JavaScript.</noscript>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
